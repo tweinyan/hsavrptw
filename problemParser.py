@@ -87,9 +87,6 @@ def parse_problem(path_to_file):
         lines = f.readlines()
         return parse_problem_lines(lines)
 
-def terminate():
-    return True
-
 #create random solution
 from random import shuffle
 def pfih(problem_instance):

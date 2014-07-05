@@ -35,6 +35,14 @@ def distance(coords1, coords2):
     (x2, y2) = coords2
     return sqrt((x1 - x2)**2 + (y1 - y2)**2)
 
+def get_coords(customer_list, i):
+    #0 is depot
+    #i is number of client beginnging from one
+    if i == 0:
+        return (0, 0)
+    else:
+        return customer_list[i-1]['coords']
+
 def parse_problem_lines(lines):
     """return dictionary containing problem variables"""
     problem_instance = {}
@@ -48,7 +56,7 @@ def parse_problem_lines(lines):
     #t is travel time matrix t[0..customer_number][0..customer_number]
     #denoting travel time between t[i][j] (it is symmetric)
     #n is customer number (fixed to 100 in Solomon problem set)
-    n = 100
+    n = 1
     #q[i] is demand of customer c[i]
     #Q[k] is capacity of k th vevicle
     #s[i] is service duration of consumer c[i]
@@ -60,24 +68,32 @@ def parse_problem_lines(lines):
         customer_dict = {'number': number, 'coords': (xcoord, ycoord),\
                 'demand': demand, 'ready': ready, 'due': due, 'servicetime': servicetime}
         customer_list.append(customer_dict)
+    n = len(customer_list)
     #initialize variables
-    q = s = e = l = range(n+1)
+    q = range(n)
+    s = range(n)
+    e = range(n)
+    l = range(n)
     t = []
+    #number of clients plus depot
     for i in range(n+1):
         t.append(range(n+1))
-    for i in range(n+1):
+    print t
+    for i in range(n):
         q[i] = customer_list[i]['demand']
         s[i] = customer_list[i]['servicetime']
         e[i] = customer_list[i]['ready']
         l[i] = customer_list[i]['due']
+    for i in range(n+1):
         for j in range(n+1):
-            t[i][j] = t[j][i] = distance(customer_list[i]['coords'], customer_list[j]['coords'])
-    problem_instance['q'] = q
-    problem_instance['s'] = s
-    problem_instance['e'] = e
-    problem_instance['l'] = l
+            t[i][j] = t[j][i] = distance(get_coords(customer_list, i),\
+                                         get_coords(customer_list, j))
+    problem_instance['demand'] = q
+    problem_instance['service_duration'] = s
+    problem_instance['time_window_start'] = e
+    problem_instance['time_window_end'] = l
     problem_instance['t'] = t
-    problem_instance['n'] = n
+    problem_instance['customer_number'] = n
 
     return problem_instance
 

@@ -78,7 +78,6 @@ def parse_problem_lines(lines):
     #number of clients plus depot
     for i in range(n+1):
         t.append(range(n+1))
-    print t
     for i in range(n):
         q[i] = customer_list[i]['demand']
         s[i] = customer_list[i]['servicetime']
@@ -136,10 +135,6 @@ def pfih(problem_instance):
     while customers_to_serve:
         #put c in the first route
         pass
-
-
-    print customers_to_serve
-    print n
 
 def check_constraints(x, problem_instance):
     n = problem_instance['n']

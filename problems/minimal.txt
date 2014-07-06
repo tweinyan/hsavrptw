@@ -1,0 +1,11 @@
+minimal
+
+VEHICLE
+NUMBER     CAPACITY
+  2         100
+
+CUSTOMER
+CUST NO.  XCOORD.   YCOORD.    DEMAND   READY TIME  DUE DATE   SERVICE   TIME
+ 
+    0      40         50         10          0       1236          0   
+    1      45         68         10        912        967         90   
